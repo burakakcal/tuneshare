@@ -1,4 +1,22 @@
-<?php require_once('header.php'); ?>
+<?php session_start(); 
+// using the the entered first name to store in the session on the server
+
+$first_name = filter_input(INPUT_POST, 'fname');
+
+$_SESSION['fname'] = $first_name;
+
+// pesonalized message with name of user in session
+if(isset($_SESSION['fname'])) {
+    echo "<p> Welcome " . $_SESSION['fname']; 
+  }
+else {
+    echo "<p> Thank you "; 
+}
+
+require_once('header.php'); 
+
+// adding Forget Me to the naviagtion bar that connects to destroy.php page to end session ?>
+
 <body class="add">
 <div class="container inner saved">
 <header class="masthead mb-auto">
@@ -8,13 +26,14 @@
         <a class="nav-link" href="index.php">Home</a>
         <a class="nav-link" href="add.php">Share Your Tune</a>
         <a class="nav-link" href="view.php">View Playlists</a>
+        <a class="nav-link" href="destroy.php">Forget Me</a>
       </nav>
     </div>
   </header>
 <h1> TuneShare - Share Your Fave Tunes & Join The Community </h1>
 <main>
+    
     <?php
-
     $first_name = filter_input(INPUT_POST, 'fname');
     $last_name = filter_input(INPUT_POST, 'lname');
     $genre = filter_input(INPUT_POST, 'genre');
@@ -133,7 +152,7 @@
             echo $error_message;
             echo " $id $first_name $last_name $genre $location $email $age $fav_song $photo";
             //email app admin with error
-            mail('jessicagilfillan@gmail.com', 'TuneShare Error', 'Error :' . $error_message);
+           //  mail('santhoshan@gmail.com', 'TuneShare Error', 'Error :' . $error_message);
         }
     }
     ?>

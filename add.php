@@ -1,4 +1,9 @@
-<?php require_once('header.php'); ?>
+<?php session_start(); 
+
+require_once('header.php'); 
+
+// adding Forget Me to the naviagtion bar that connects to destroy.php page to end session?>
+
 <body class="add">
 <div class="container inner">
 <header class="masthead mb-auto">
@@ -8,9 +13,11 @@
         <a class="nav-link" href="index.php">Home</a>
         <a class="nav-link" href="add.php">Share Your Tune</a>
         <a class="nav-link" href="view.php">View Playlists</a>
+        <a class="nav-link" href="destroy.php">Forget Me</a> 
       </nav>
     </div>
   </header>
+
     <?php
     //initialize variables 
     $id = null; 
@@ -60,6 +67,15 @@
     <main>
     <h1>Share Your Fave Tunes</h1>
       <form action="process.php" method="post" enctype="multipart/form-data" class="form">
+      <?php
+      // Welcome message for user
+      if (isset($_SESSION['fname'])) {
+      echo "<p> Welcome " . $_SESSION['fname'];
+      } else {
+      echo "<p> Welcome ";
+      }
+      ?>
+
         <!-- add hidden input with user id if editing -->
         <input type="hidden" name="user_id" value="<?php echo $id;?>">
         <div class="form-group">

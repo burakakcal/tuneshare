@@ -1,4 +1,7 @@
-<?php require_once('header.php'); ?>
+<?php session_start(); 
+// adding Forget Me to the naviagtion bar that connects to destroy.php page to end session
+require_once('header.php'); ?>
+
 <body class="view">
 <div class="container inner">
 <header class="masthead mb-auto">
@@ -8,9 +11,11 @@
         <a class="nav-link" href="index.php">Home</a>
         <a class="nav-link" href="add.php">Share Your Tune</a>
         <a class="nav-link" href="view.php">View Playlists</a>
+        <a class="nav-link" href="destroy.php">Forget Me</a>
       </nav>
     </div>
   </header>
+
     <?php
     try {
     //connect to our db 
@@ -37,12 +42,20 @@
         . $record['first_name'] . "</td><td>" . $record['last_name'] . "</td><td>" . $record['genre'] . "</td><td>" . $record['location'] . "</td><td>" . $record['email'] . "</td><td>" . $record['favsong']. "</td><td><a href='" . $record['link']. "' target='_blank'> Listen Now </a></td><td><a href='delete.php?id=" . $record['user_id'] . "'> Delete </a></td><td><a href='add.php?id=" . $record['user_id'] . "'>Edit </a></td></tr>";
         }
      echo "</tbody></table>"; 
-
      $statement->closeCursor(); 
     }
     catch(PDOException $e) {
         $error_message = $e->getMessage(); 
         echo "<p> $error message </p>"; 
+    }
+    ?>
+
+    <?php
+    //Welcome message for user
+    if (isset($_SESSION['fname'])) {
+    echo "<p> Welcome " . $_SESSION['fname'];
+    } else {
+    echo "<p> Welcome ";
     }
     ?>
     </main>
